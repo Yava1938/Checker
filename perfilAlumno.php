@@ -1,7 +1,7 @@
 <?php include("conexion.php"); ?>
 <?php
 session_start();
-if (isset($_SESSION['docente'])) {
+if (isset($_SESSION['alumno'])) {
     
 ?>
 <!DOCTYPE html>
@@ -19,11 +19,8 @@ if (isset($_SESSION['docente'])) {
         <!-- Google fonts-->
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
-        <link href="css/styless.css" rel="stylesheet" />
-
     </head>
     <body id="page-top">
         <!-- Navigation-->
@@ -37,19 +34,16 @@ if (isset($_SESSION['docente'])) {
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
                         <div class="container">
-                  <a href="perfilDocente.php" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"><h5>Inicio</h5></a>
-                  <a href="docenteActividades.php" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"><h5>Actividades</h5></a>
-                  <a href="docenteReportes.php" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"><h5>Reportes</h5></a>
+                  <a href="perfilAlumno.php" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"><h5>Inicio</h5></a>
+                  <a href="alumnoReporte.php" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"><h5>Reportes</h5></a>
                   <h2><div class="dropdown ">
                     <button style="color:#4EC39E" class="btn btn-succes dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <?php
-                      $nombre = $_SESSION['docente']['Nombre_Docente'];
+                      $nombre = $_SESSION['alumno']['Nombre_Alumno'];
                       echo $nombre; ?>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                       <a class="dropdown-item" href="PerfilDocente.php">Perfíl</a>
-                      <a class="dropdown-item" href="temas.php">Temas</a>
-                      <a class="dropdown-item" href="InicioUbicacion.php">Ubicación</a>
                       <hr>
                       <a class="dropdown-item" href="cerrarSesion.php">Cerrar sesión</a>
                     </div></h2>
@@ -83,7 +77,7 @@ if (isset($_SESSION['docente'])) {
             </thead>
 
             <?php
-            $idDoc = $_SESSION['docente']['Id_Docente'];
+            $idDoc = $_SESSION['alumno']['Id_Docente'];
             $sql = "Select * from Actividad WHERE Id_Docente = '$idDoc'";
             $resultadoActividades = mysqli_query($conexion_BD, $sql);
             while ($tab = mysqli_fetch_array($resultadoActividades)) {    ?>
@@ -112,89 +106,50 @@ if (isset($_SESSION['docente'])) {
           </table>
         </center>
       </div>
-
-
-
-      <center>
+  </div>
+<!-- Boton -->
+<center>
         <div class="btn-group" role="group" aria-label="Basic example" style="margin: 5px;">
 
-          <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Agregar Actividad
+          <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Concluir Actividad
           </button>
 
-
-          <button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#exampleModal0" data-whatever="@mdo">Editar Actividad
+          <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#exampleModal2" data-whatever="@mdo">Registrar Actividad
           </button>
-
-
-          <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal2" data-whatever="@mdo">Eliminar Actividad
-          </button>
-
         </div>
 
       </center>
-
-
-      <!--Agregar una nueva actividad -->
-      <div class="container mt-2 pt-2">
+      <!--Fin Boton -->
+    <!-- Concluir Actividad -->
+    <div class="container mt-2 pt-2">
 
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header bg-success text-white">
-                <h5 class="modal-title" id="exampleModalLabel">Registrar Actividad</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Concluir Actividad</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
 
               <div class="modal-body" style="padding-top: 20px;">
-                <form action="AgregarActividad.php" method="post">
-                  <p>Ingresa los datos requeridos para registrar una nueva actividad.</p>
+                <form action="concluirActividad.php" method="post">
+                  <p>Selecciona la actividad a concluir.</p>
                   <hr>
                   <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">Descripción de la actividad:</label>
-                    <input type="text" class="form-control" id="recipient-name" name="descripcion" placeholder="Ej. Terminar el desarrollo.">
-                  </div>
-
-                  <div class="form-group">
-                    <label for="message-text" class="col-form-label">Ubicación de la actividad:</label>
+                    <label for="message-text" class="col-form-label">Número de la actividad:</label>
                     <br>
                     <?php
-                    $consulta = "SELECT * FROM Ubicacion";
+                    $idAlumno = $_SESSION['alumno']['Id_Alumno'];
+                    $consulta = "SELECT * FROM Actividad WHERE Id_Alumno ='$idAlumno'";
                     $query = mysqli_query($conexion_BD, $consulta); ?>
-                    <select name="ubicacion">
-                      <?php while ($ubicaciones = mysqli_fetch_assoc($query)) { ?>
-                        <option> <?php echo $ubicaciones['Nombre_Ubicacion'] ?></option>
+                    <select name="idActividad">
+                      <?php while ($act = mysqli_fetch_assoc($query)) { ?>
+                        <option> <?php echo $act['Id_Actividad'] ?></option>
                       <?php } ?>
                     </select>
                   </div>
-
-                  <div class="form-group">
-                    <label for="message-text" class="col-form-label">Estudiante responsable:</label>
-                    <br>
-                    <?php
-                    $idDoc = $_SESSION['docente']['Id_Docente'];
-                    $consulta = "SELECT Nombre_Alumno as nombre FROM Alumno WHERE Id_Docente = '$idDoc'";
-                    $query = mysqli_query($conexion_BD, $consulta); ?>
-                    <select name="estudiante_asignado">
-                      <?php while ($asignarEstudiante = mysqli_fetch_assoc($query)) { ?>
-                        <option> <?php echo $asignarEstudiante['nombre'] ?> </option>
-
-                      <?php } ?>
-                    </select>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="message-text" class="col-form-label">Prioridad de la actividad: </label>
-                    <select name="prioridad">
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                    </select>
-                    <br>
-                    <p>Nota: La escala de Prioridad es la siguiente:<br> 1.- Prioridad Baja<br> 2.- Prioridad Media<br> 3.- Prioridad Alta</p>
-                  </div>
-
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                     <button type="submit" class="btn btn-success">Guardar</button>
@@ -205,57 +160,32 @@ if (isset($_SESSION['docente'])) {
           </div>
         </div>
       </div>
-        <!-- Fin Agregar una nueva activida-->
+    <!-- Fin Concluir Actividad -->
+    <!-- Registrar actividad-->
+    <div class="container mt-2 pt-2">
 
-        <!-- Editar una actividad -->
-        <div class="container mt-2 pt-2">
-
-        <div class="modal fade" id="exampleModal0" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
-              <div class="modal-header bg-warning dark-white">
-                <h5 class="modal-title" id="exampleModalLabel">Editar Actividad</h5>
+              <div class="modal-header bg-info text-white">
+                <h5 class="modal-title" id="exampleModalLabel">Registrar Actividad</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
 
               <div class="modal-body" style="padding-top: 20px;">
-                <form action="ActualizarActividad.php" method="post">
-                  <p>Ingresa los datos requeridos para editar la actividad.</p>
+                <form action="concluirActividad.php" method="post">
+                  <p>Ingrese los datos de la nueva actividad.</p>
                   <hr>
                   <div class="form-group">
-                    <label for="message-text" class="col-form-label">Número de actividad:</label>
-                    <br>
-                    <?php
-                    $consulta = "SELECT * FROM Actividad";
-                    $query = mysqli_query($conexion_BD, $consulta); ?>
-                    <select name="id">
-                      <?php while ($actividad = mysqli_fetch_assoc($query)) { ?>
-                        <option> <?php echo $actividad['Id_Actividad'] ?></option>
-                      <?php } ?>
-                    </select>
+                    <label for="recipient-name" class="col-form-label">Alumno:</label>
+                    <input type="text" class="form-control" id="recipient-name" name="Alumno" value="<?php echo $_SESSION['alumno']['Nombre_Alumno'];?>" disabled="disabled">
                   </div>
-
                   <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">Nueva descripción de la actividad:</label>
+                    <label for="recipient-name" class="col-form-label">Descripción de la actividad:</label>
                     <input type="text" class="form-control" id="recipient-name" name="descripcion" placeholder="Ej. Terminar el desarrollo.">
                   </div>
-
-                  <div class="form-group">
-                    <label for="message-text" class="col-form-label">Ubicación de la actividad:</label>
-                    <br>
-                    <?php
-                    $consulta = "SELECT Nombre_Ubicacion FROM Ubicacion";
-                    $query = mysqli_query($conexion_BD, $consulta); ?>
-                    <select name="ubicacion">
-                      <?php while ($ubicacion = mysqli_fetch_assoc($query)) { ?>
-                        <option> <?php echo $ubicacion['Nombre_Ubicacion'] ?> </option>
-
-                      <?php } ?>
-                    </select>
-                  </div>
-
                   <div class="form-group">
                     <label for="message-text" class="col-form-label">Prioridad de la actividad: </label>
                     <select name="prioridad">
@@ -266,10 +196,9 @@ if (isset($_SESSION['docente'])) {
                     <br>
                     <p>Nota: La escala de Prioridad es la siguiente:<br> 1.- Prioridad Baja<br> 2.- Prioridad Media<br> 3.- Prioridad Alta</p>
                   </div>
-
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-warning">Actualizar Actividad</button>
+                    <button type="submit" class="btn btn-info">Guardar</button>
                   </div>
                 </form>
               </div>
@@ -277,50 +206,8 @@ if (isset($_SESSION['docente'])) {
           </div>
         </div>
       </div>
-        <!-- Fin Editar una actividad-->
-
-
-
-        <!-- Eliminar una actividad-->
-
-
-        <div class="container mt-2 pt-2">
-          <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header bg-danger text-white">
-                  <h5 class="modal-title" id="exampleModalLabel">Eliminar Actividad</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <div class="form-group">
-                    <form action="EliminarActividad.php" method="post">
-                      <p>Selecciona el número de actividad a eliminar.</p>
-                      <label for="recipient-name" class="col-form-label">N. de Actividad:</label>
-
-                      <?php
-                      $consulta = "SELECT * FROM Actividad";
-                      $query = mysqli_query($conexion_BD, $consulta); ?>
-                      <select name="descripcion">
-                        <?php while ($actividades = mysqli_fetch_assoc($query)) { ?>
-                          <option> <?php echo $actividades['Descripcion_Actividad'] ?></option>
-                        <?php } ?>
-                      </select>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-danger">Eliminar</button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <!--Fin Registrar Actividad-->
+    <!-- Fin eliminar alumno -->
         </section>
         <!-- Footer-->
         <footer class="footer text-center">

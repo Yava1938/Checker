@@ -4,7 +4,7 @@ include ("conexion.php");
 $Matricula_Alumno = $_POST['matricula_alumno'];
 $contrasena_Alumno = $_POST['contrasena_alumno'];
 
-$queryAlumno = "Select * FROM Alumno WHERE Matricula_Alumno = '$Matricula_Alumno'";
+$queryAlumno = "SELECT * FROM Alumno WHERE Matricula_Alumno = '$Matricula_Alumno'";
 
 $resAlumno = mysqli_query($conexion_BD, $queryAlumno);
 
@@ -14,15 +14,14 @@ $alumno = mysqli_fetch_array($resAlumno);
     $_SESSION['alumno'] = $alumno;
     var_dump($_SESSION['alumno']);
 
-if ($matricula_alumno == $alumno['matricula_alumno'] ) {
-  if (password_verify($contrasena_alumno, $alumno['contrasena_alumno']) ) {
+if ($Matricula_Alumno == $alumno['Matricula_Alumno'] ) {
+  if (password_verify($contrasena_Alumno, $alumno['Contrasena_Alumno']) ) {
     session_start();
-    $_SESSION['matricula_alumno'] =  $alumno['matricula_alumno'];
+    $_SESSION['Matricula_Alumno'] =  $alumno['Matricula_Alumno'];
     $_SESSION['alumno'] = $alumno;
     //var_dump($_SESSION['alumno']);
 
-
-    header("location: Inicioalumno.php");
+    header("location: perfilAlumno.php");
   }else{
     echo '<script>
          alert("Contraseña incorrecta");

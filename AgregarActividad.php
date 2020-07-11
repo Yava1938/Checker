@@ -21,12 +21,19 @@ session_start();
 $id_docente = $_SESSION['docente']['Id_Docente'];
 $id = $array['Id_Alumno'];
 $idUbi = $array2['Id_Ubicacion'];
-$sql="INSERT INTO Actividad VALUES (null, '$id_docente', '$id','$descripcion_actividad', '$fecha_actividad','$prioridad','$idUbi')";
+
+$sql="INSERT INTO Actividad VALUES (null, '$id_docente', '$id','$descripcion_actividad', '$fecha_actividad','$prioridad','$idUbi','0')";
 
 
 $ejecutar=mysqli_query($conexion_BD, $sql);
 if(!$ejecutar){
     echo"Error al registrar la actividad";
+    echo $id_docente;
+    echo $id;
+    echo $descripcion_actividad;
+    echo $fecha_actividad;
+    echo $prioridad;
+    echo $idUbi;
 }else{
     echo '<script>
     			alert("Actividad registrada correctamente");
