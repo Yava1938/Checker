@@ -2,11 +2,9 @@
 <?php
 session_start();
 if (isset($_SESSION['docente'])) {
-    header("location: perfilDocente.php");
-}elseif (isset($_SESSION['alumno'])) {
-    header("location: perfilAlumno.php");
-}else{
-?><!DOCTYPE html>
+    
+?>
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8" />
@@ -35,193 +33,163 @@ if (isset($_SESSION['docente'])) {
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="index.php">Inicio</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="docente.php">Docente</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="alumno.php">Alumno</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#Nosotros">Acerca de nosotros</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#Contacto">Contactanos!</a></li>
+                        <div class="container">
+                  <a href="perfilDocente.php" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"><h5>Inicio</h5></a>
+                  <a href="docenteActividades.php" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"><h5>Actividades</h5></a>
+                  <a href="docenteReportes.php" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"><h5>Reportes</h5></a>
+                  <h2><div class="dropdown ">
+                    <button style="color:#4EC39E" class="btn btn-succes dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <?php
+                      $nombre = $_SESSION['docente']['Nombre_Docente'];
+                      echo $nombre; ?>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" href="PerfilDocente.php">Perfíl</a>
+                      <a class="dropdown-item" href="temas.php">Temas</a>
+                      <a class="dropdown-item" href="InicioUbicacion.php">Ubicación</a>
+                      <hr>
+                      <a class="dropdown-item" href="cerrarSesion.php">Cerrar sesión</a>
+                    </div></h2>
+                  </div>
+                </div>
                     </ul>
                 </div>
             </div>
         </nav>
-        <!-- Masthead-->
-        <header class="masthead bg-primary text-white text-center">
-            <div class="container d-flex align-items-center flex-column">
-                <!-- Masthead Avatar Image-->
-                <img class="masthead-avatar mb-5" src="assets/img/logo.png" alt="" />
-                <!-- Masthead Heading-->
-                <h1 class="masthead-heading text-uppercase mb-0">Control y seguimiento para servicio Social</h1>
-                <!-- Icon Divider-->
-                <div class="divider-custom divider-light">
-                    <div class="divider-custom-line"></div>
-                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                    <div class="divider-custom-line"></div>
-                </div>
-                <!-- Masthead Subheading-->
-                <p class="masthead-subheading font-weight-light mb-0">WaterMelon Co. 🍉 </p>
-            </div>
-        </header>
         <!-- Portfolio Section-->
         <section class="page-section portfolio" id="Nosotros">
             <div class="container">
-                
-                <!-- Icon Divider-->
-                <div class="divider-custom">
-                    <div class="divider-custom-line"></div>
-                    <div class="divider-custom-icon"><!-- Portfolio Section Heading-->
-                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Acerca de Nosotros</h2></div>
-                    <div class="divider-custom-line"></div>
-                </div>
-                <!-- Portfolio Grid Items-->
-                <div class="row">
-                    <!-- Portfolio Item 1-->
-                    <div class="col-md-6 col-lg-4 mb-5">
-                        <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal1">
-                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                            </div>
-                            <img class="img-fluid" src="assets/img/Nosotros/Zurita.jpg" alt="" />
-                        </div>
-                    </div>
-                    <!-- Portfolio Item 2-->
-                    <div class="col-md-6 col-lg-4 mb-5">
-                        <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal2">
-                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                            </div>
-                            <img class="img-fluid" src="assets/img/Nosotros/Valerio.jpg" alt="" />
-                        </div>
-                    </div>
-                    <!-- Portfolio Item 3-->
-                    <div class="col-md-6 col-lg-4 mb-5">
-                        <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal3">
-                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                            </div>
-                            <img class="img-fluid" src="assets/img/Nosotros/Marlon.jpg" alt="" />
-                        </div>
-                    </div>
-                    <!-- Portfolio Item 4-->
-                    <div class="col-md-6 col-lg-4 mb-5 mb-lg-0">
-                        <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal4">
-                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                            </div>
-                            <img class="img-fluid" src="assets/img/Nosotros/Dominguez.jpg" alt="" />
-                        </div>
-                    </div>
-                    <!-- Portfolio Item 5-->
-                    <div class="col-md-6 col-lg-4 mb-5 mb-md-0">
-                        <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal5">
-                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                            </div>
-                            <img class="img-fluid" src="assets/img/Nosotros/Chiz.jpg" alt="" />
-                        </div>
-                    </div>
-                    <!-- Portfolio Item 6-->
-                    <div class="col-md-6 col-lg-4">
-                        <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal6">
-                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                            </div>
-                            <img class="img-fluid" src="assets/img/Nosotros/Jafeth.jpg" alt="" />
-                        </div>
-                    </div>
-                    <!-- Portfolio Item 7-->
-                    <div class="col-md-6 col-lg-4 pt-md-5">
-                        <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal4">
-                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                            </div>
-                            <img class="img-fluid" src="assets/img/Nosotros/Fernandez.jpg" alt="" />
-                        </div>
-                    </div>
-                    <!-- Portfolio Item 8-->
-                    <div class="col-md-6 col-lg-4 pt-md-5">
-                        <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal5">
-                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                            </div>
-                            <img class="img-fluid" src="assets/img/Nosotros/Yael.jpg" alt="" />
-                        </div>
-                    </div>
-                    <!-- Portfolio Item 9-->
-                    <div class="col-md-6 col-lg-4 pt-md-5">
-                        <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal6">
-                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                            </div>
-                            <img class="img-fluid" src="assets/img/Nosotros/Marcelo.jpg" alt="" />
-                        </div>
-                    </div>
-                </div>
+      <div class="textoPrincipal" style="text-align: center; margin-top:10px;"><br>
+        <h2>Alumnos registrados</h2>
+        <hr>
+      </div>
+            <div class="row mt-5 pt-3">
+        <?php
+        $id = $_SESSION['docente']['Id_Docente'];
+        $query = "SELECT Id_Alumno, Nombre_Alumno, Matricula_Alumno, Estado_Alumno FROM Alumno where Id_Docente = '$id'";
+        $resultadoUsuario = mysqli_query($conexion_BD, $query);
+        $estado = "";
+        while ($card = mysqli_fetch_array($resultadoUsuario)) {                ?>
+          <div class="col-sm-4  mb-3" style="width: 18rem;">
+            <div class="card-header bg-success " style="color: white;">Estudiante</div>
+            <div class="card-body">
+              <h5 class="card-title"><?php echo $card['1'] ?></h5>
+              <p class="card-text">N. Registro: <?php echo $card['0'] ?></p>
+              <p class="card-text">Matricula: <?php echo $card['2'] ?></p>
             </div>
-        </section>
-        <!-- About Section-->
-        <section class="page-section bg-primary text-white mb-0" id="about">
-            <div class="container">
-                <!-- Icon Divider-->
-                <div class="divider-custom divider-light">
-                    <div class="divider-custom-line"></div>
-                    <div class="divider-custom-icon"><i>¡Si puedes soñarlo, nosotros lo creamos!</i></i></div>
-                    <div class="divider-custom-line"></div>
-                </div>
-                <!-- About Section Content-->
-                <div class="row">
+            <div class="card-footer">
+              <?php if ($card['3'] == 0) {
+                $estado = "Desconectado";
+              } else {
+                $estado = "Conectado";
+              } ?>
+              <p class="text-muted"><?php echo $estado; ?></p>
+            </div>
+          </div>
+        <?php } ?>
+      </div>
+  </div>
+<!-- Agregar Estudante -->
+      <div class="container mt-5 pt-10 ">
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Agregar Estudiante
+      </button>
+    </div>
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
 
-                    <div class="col-lg-4 ml-auto"><p class="lead" align="Justify">
-                    WaterMelon Co. surge en la ciudad y puerto de Coatzacoalcos, Veracruz a raíz de la necesidad de nuevas empresas encargadas de proveer soluciones tecnológicas en el mundo laboral actual.
-                    Constituído en el año 2020, Watermelon Co. rápidamente se posicionó entre los principales referentes del desarrollo de soluciones tecnológicas.
-                    Bajo el lema de: "La comodidad alimenta la debilidad" nos enfocamos en ofrecer las mejores soluciones tecnológicas a las    necesidades de tu empresa..</p></div>
-                    <div class="col-lg-4 mr-auto"><br><br><br><img  src="assets/img/logoWatermelon.jpg" alt="" /></div>
-                </div>
-                <!-- About Section Button-->
-                
+          <div class="modal-content">
+            <div class="modal-header bg-primary" style="color:white">
+              <h5 class="modal-title" id="exampleModalLabel">Registrar Estudiante</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
             </div>
-        </section>
-        <!-- Contact Section-->
-        <section class="page-section" id="Contacto">
-            <div class="container">
-                <!-- Contact Section Heading-->
-                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Contactanos!</h2>
-                <!-- Icon Divider-->
-                <div class="divider-custom">
-                    <div class="divider-custom-line"></div>
-                    <div class="divider-custom-icon"><h3>Puedes dejar tu queja o sugerencia!</h3></div>
-                    <div class="divider-custom-line"></div>
+
+            <div class="modal-body">
+              <p>Ingresa los datos requeridos para registrar un nuevo estudiante.</p>
+              <hr>
+              <form action="registrarEstudiante.php" method="POST">
+                <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Nombre del estudiante:</label>
+                  <input type="text" class="form-control" id="recipient-name" name="nombre" placeholder="Ej. Estudiante Maravilla">
                 </div>
-                <!-- Contact Section Form-->
-                <div class="row">
-                    <div class="col-lg-8 mx-auto">
-                        <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19.-->
-                        <form id="contactForm" name="sentMessage" novalidate="novalidate">
-                            <div class="control-group">
-                            </div>
-                            <div class="control-group">
-                                <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                                    <label>Email Address</label>
-                                    <input class="form-control" id="email" type="email" placeholder="Email Address" required="required" data-validation-required-message="Please enter your email address." />
-                                    <p class="help-block text-danger"></p>
-                                </div>
-                            </div>
-                            <div class="control-group">
-                                <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                                    <label>Message</label>
-                                    <textarea class="form-control" id="message" rows="5" placeholder="Message" required="required" data-validation-required-message="Please enter a message."></textarea>
-                                    <p class="help-block text-danger"></p>
-                                </div>
-                            </div>
-                            <br />
-                            <div id="success"></div>
-                            <div class="form-group"><button class="btn btn-primary btn-xl" id="sendMessageButton" type="submit">Send</button></div>
-                        </form>
-                    </div>
+
+                <div class="form-group">
+                  <label for="message-text" class="col-form-label">Matricula del estudiante:</label>
+                  <input type="text" class="form-control" id="message-text" name="matricula" placeholder="Ej. S17016281"></input>
                 </div>
+
+                <div class="form-group">
+                  <label for="message-text" class="col-form-label">Programa educativo:</label>
+                  <input type="text" class="form-control" id="message-text" name="licenciatura" placeholder="Ej. Ingeniería de Software"></input>
+                </div>
+
+                <div class="form-group">
+                  <label for="message-text" class="col-form-label">Facultad de procedencia:</label>
+                  <input type="text" class="form-control" id="message-text" name="facultad" placeholder="Ej. Contaduría y Administración"></input>
+                </div>
+
+                <div class="form-group">
+                  <label for="message-text" class="col-form-label">Contraseña del estudiante:</label>
+                  <input type="password" class="form-control" name="contrasena" placeholder="Ej. ************"></input>
+                </div>
+
+
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                  <input type="submit" value="Registrar" class="btn btn-primary" name="submit">
+                </div>
+              </form>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Fin agregar alumno -->
+    <!-- Eliminar estudiante -->
+    <div class="container mt-5 pt-10">
+      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal2" data-whatever="@mdo">Eliminar Estudiante
+      </button>
+
+      <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+
+          <div class="modal-content">
+            <div class="modal-header text-white bg-danger">
+              <h5 class="modal-title" id="exampleModalLabel">Eliminar Estudiante</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <div class="modal-body">
+              <form action="EliminarEstudiante.php" method="POST">
+
+                <div class="form-group">
+                  <p>Selecciona el número de registro del estudiante a eliminar.</p>
+                  <label for="message-text" class="col-form-label">N. de Registro:</label>
+                  <?php
+                  $idDoc = $_SESSION['docente']['Id_Docente'];
+                  $consulta = "SELECT * FROM Alumno where Id_Docente = $idDoc";
+                  $query = mysqli_query($conexion_BD, $consulta); ?>
+                  <select name="estudiante">
+                    <?php while ($alumno = mysqli_fetch_assoc($query)) { ?>
+                      <option> <?php echo $alumno['Id_Alumno'] ?> </option>
+                    <?php } ?>
+                  </select>
+                </div>
+
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                  <input type="submit" value="Eliminar" class="btn btn-danger" name="submit">
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Fin eliminar alumno -->
         </section>
         <!-- Footer-->
         <footer class="footer text-center">
@@ -479,4 +447,9 @@ if (isset($_SESSION['docente'])) {
         <script src="js/scripts.js"></script>
     </body>
 </html>
-<?php } ?>
+<?php }elseif (isset($_SESSION['alumno'])) {
+    header("location: perfilAlumno.php");
+}else{
+    header("location: index.php");
+}
+?>
