@@ -64,7 +64,7 @@ if (isset($_SESSION['docente'])) {
                       <input type="password" class="formulario__input" name="contrasena_docente">
                       <label type="text" class="formulario__label">Contraseña</label>
 
-                      <input type="password" class="formulario__input" name="correo_docente">
+                      <input type="text" class="formulario__input" name="correo_docente">
                       <label type="text" class="formulario__label">Correo</label>
                     </div>
                     <button type="submit" class="btn btn-primary btn-lg btn-block mb-3" name="submit">Registrar</button>

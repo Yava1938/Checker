@@ -83,7 +83,8 @@ if (isset($_SESSION['docente'])) {
             </thead>
 
             <?php
-            $sql = "Select * from Actividad";
+            $idDoc = $_SESSION['docente']['Id_Docente'];
+            $sql = "Select * from Actividad WHERE Id_Docente = '$idDoc'";
             $resultadoActividades = mysqli_query($conexion_BD, $sql);
             while ($tab = mysqli_fetch_array($resultadoActividades)) {    ?>
 

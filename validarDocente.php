@@ -19,7 +19,7 @@ if ($Matricula_Docente == $docente['Matricula_Docente'] ) {
     $_SESSION['matricula_docente'] =  $docente['matricula_docente'];
     $_SESSION['docente'] = $docente;
 
-    header("location: InicioDocente.php");
+    header("location: perfilDocente.php");
   }else{
       echo '<script>
        alert("Contraseña incorrecta");
