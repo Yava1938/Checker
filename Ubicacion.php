@@ -1,7 +1,7 @@
 <?php include("conexion.php"); ?>
 <?php
 session_start();
-if (isset($_SESSION['alumno'])) {
+if (isset($_SESSION['docente'])) {
     
 ?>
 <!DOCTYPE html>
@@ -34,16 +34,18 @@ if (isset($_SESSION['alumno'])) {
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
                         <div class="container">
-                  <a href="perfilAlumno.php" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"><h5>Inicio</h5></a>
-                  <a href="alumnoReporte.php" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"><h5>Reportes</h5></a>
+                  <a href="perfilDocente.php" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"><h5>Inicio</h5></a>
+                  <a href="docenteActividades.php" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"><h5>Actividades</h5></a>
+                  <a href="docenteReportes.php" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"><h5>Reportes</h5></a>
                   <h2><div class="dropdown ">
                     <button style="color:#4EC39E" class="btn btn-succes dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <?php
-                      $nombre = $_SESSION['alumno']['Nombre_Alumno'];
+                      $nombre = $_SESSION['docente']['Nombre_Docente'];
                       echo $nombre; ?>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      <a class="dropdown-item" href="miperfilAlumno.php">Perfíl</a>
+                      <a class="dropdown-item" href="PerfilDocente.php">Perfíl</a>
+                      <a class="dropdown-item" href="Ubicacion.php">Ubicación</a>
                       <hr>
                       <a class="dropdown-item" href="cerrarSesion.php">Cerrar sesión</a>
                     </div></h2>
@@ -57,157 +59,128 @@ if (isset($_SESSION['alumno'])) {
         <section class="page-section portfolio" id="Nosotros">
             <div class="container">
       <div class="textoPrincipal" style="text-align: center; margin-top:10px;"><br>
-        <h2>Actividades</h2>
+        <h2>Ubicaciones</h2>
         <hr>
       </div>
-            <div class="container">
-      <div class="container">
-        <center>
-          <table class="table" id="actividades">
-            <thead>
-              <tr>
-                <th scope="col">id</th>
-                <th scope="col">Descripcion</th>
-                <th scope="col">Fecha</th>
-                <th scope="col">Ubicación</th>
-                <th scope="col">Prioridad</th>
-                <th scope="col">Responsable</th>
-                <th scope="col">Estado</th>
-              </tr>
-            </thead>
-
-            <?php
-            $idDoc = $_SESSION['alumno']['Id_Docente'];
-            $sql = "Select * from Actividad WHERE Id_Docente = '$idDoc'";
-            $resultadoActividades = mysqli_query($conexion_BD, $sql);
-            while ($tab = mysqli_fetch_array($resultadoActividades)) {    ?>
-
-              <tbody>
-                <tr>
-                  <?php $consultaTablaUbicacion = "SELECT * FROM Ubicacion";
-                  $queryTabla = mysqli_query($conexion_BD, $consultaTablaUbicacion);
-                  $ubicacion = mysqli_fetch_array($queryTabla); ?>
-
-                  <th scope="row"><?php echo $tab['Id_Actividad'] ?></th>
-                  <td><?php echo $tab['Descripcion_Actividad'] ?></td>
-                  <td><?php echo $tab['Fecha_Actividad'] ?></td>
-                  <td><?php echo $ubicacion['Nombre_Ubicacion'] ?></td>
-                  <td><?php echo $tab['Prioridad'] ?></td>
-                  <td><?php echo $tab['Id_Alumno'] ?></td>
-                  <td><?php if ($tab['Estado_Actividad'] == 0) {
-                    $estado = "Pendiente";
-                  }else{
-                    $estado = "Realizado";
-                  }
-                  echo $estado ?></td>
-                </tr>
-              </tbody>
-            <?php } ?>
-          </table>
-        </center>
+            <div class="row mt-5 pt-3">
+        <?php
+        $query = "SELECT * FROM Ubicacion";
+        $resultadoUbicacion = mysqli_query($conexion_BD, $query);
+        $estado = "";
+        while ($card = mysqli_fetch_array($resultadoUbicacion)) {                ?>
+          <div class="col-sm-4  mb-3" style="width: 18rem;">
+            <div class="card-header bg-secondary " style="color: white;">Ubicación No. <?php echo $card['0'];?></div>
+            <div class="card-body">
+              <?php $foto = $card['3'];
+                $descrip = $card['2']; ?>
+                <h5 class="card-title"><?php echo "<img src='data:image/jpeg; base64," . base64_encode($foto) . "' width='250px'"  ?></h5>
+            </div>
+            <div class="card-footer">
+              <h5 class="card-title"><?php echo $card['1'] ?></h5>
+              <p class="card-text">Descripción: <?php echo $descrip ?></p>
+            </div>
+          </div>
+        <?php } ?>
       </div>
   </div>
-<!-- Boton -->
+<!--Opciones-->
 <center>
         <div class="btn-group" role="group" aria-label="Basic example" style="margin: 5px;">
 
-          <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Concluir Actividad
+          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Agregar Ubicación
           </button>
 
-          <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#exampleModal2" data-whatever="@mdo">Registrar Actividad
+          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal2" data-whatever="@mdo">Eliminar Actividad
           </button>
+
         </div>
 
       </center>
-      <!--Fin Boton -->
-    <!-- Concluir Actividad -->
-    <div class="container mt-2 pt-2">
+<!--Fin Opciones--> 
+
+<!--Agregar ubicación -->
+<div class="container mt-2 pt-2">
 
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header bg-success text-white">
-                <h5 class="modal-title" id="exampleModalLabel">Concluir Actividad</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-
-              <div class="modal-body" style="padding-top: 20px;">
-                <form action="concluirActividad.php" method="post">
-                  <p>Selecciona la actividad a concluir.</p>
-                  <hr>
-                  <div class="form-group">
-                    <label for="message-text" class="col-form-label">Número de la actividad:</label>
-                    <br>
-                    <?php
-                    $idAlumno = $_SESSION['alumno']['Id_Alumno'];
-                    $consulta = "SELECT * FROM Actividad WHERE Id_Alumno ='$idAlumno'";
-                    $query = mysqli_query($conexion_BD, $consulta); ?>
-                    <select name="idActividad">
-                      <?php while ($act = mysqli_fetch_assoc($query)) { ?>
-                        <option> <?php echo $act['Id_Actividad'] ?></option>
-                      <?php } ?>
-                    </select>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-success">Guardar</button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    <!-- Fin Concluir Actividad -->
-    <!-- Registrar actividad-->
-    <div class="container mt-2 pt-2">
-
-        <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header bg-info text-white">
                 <h5 class="modal-title" id="exampleModalLabel">Registrar Actividad</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
 
-              <div class="modal-body" style="padding-top: 20px;">
-                <form action="concluirActividad.php" method="post">
-                  <p>Ingrese los datos de la nueva actividad.</p>
-                  <hr>
-                  <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">Alumno:</label>
-                    <input type="text" class="form-control" id="recipient-name" name="Alumno" value="<?php echo $_SESSION['alumno']['Nombre_Alumno'];?>" disabled="disabled">
+              <div class="modal-body">
+                <form action="registrarUbicacion.php" method="POST" enctype="multipart/form-data">
+                <p>Ingresa los datos requeridos para registrar una nueva ubicación.</p>
+                <hr>
+                <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Nombre de la ubicación:</label>
+                  <input type="text" class="form-control" id="recipient-name" name="ubicacion" placeholder="Ej. La Cueva">
+                </div>
+
+                <div class="form-group">
+                  <label for="message-text" class="col-form-label">Descripcion de la ubicación:</label>
+                  <textarea class="form-control" id="message-text" name="descripcion" placeholder="Ej. El mejor lugar."></textarea>
+                </div>
+
+                <div class="input-group">
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" name="image">
+                    <label class="custom-file-label" for="inputGroupFile04">Selecciona la imagen a cargar...</label>
                   </div>
-                  <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">Descripción de la actividad:</label>
-                    <input type="text" class="form-control" id="recipient-name" name="descripcion" placeholder="Ej. Terminar el desarrollo.">
-                  </div>
-                  <div class="form-group">
-                    <label for="message-text" class="col-form-label">Prioridad de la actividad: </label>
-                    <select name="prioridad">
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                    </select>
-                    <br>
-                    <p>Nota: La escala de Prioridad es la siguiente:<br> 1.- Prioridad Baja<br> 2.- Prioridad Media<br> 3.- Prioridad Alta</p>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-info">Guardar</button>
-                  </div>
-                </form>
+                </div>
+
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                  <input type="submit" value="Registrar ubicación" class="btn btn-primary" name="submit">
+                </div>
+              </form>
               </div>
             </div>
           </div>
         </div>
       </div>
-    <!--Fin Registrar Actividad-->
-    <!-- Fin eliminar alumno -->
+<!--Fin Agregar ubicación -->       
+
+<!--Eliminar ubicación -->
+        <div class="container mt-2 pt-2">
+          <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                  <h5 class="modal-title" id="exampleModalLabel">Eliminar Actividad</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="form-group">
+                    <form action="eliminarUbicacion.php" method="post">
+                      <p>Selecciona el número de la ubicación a eliminar.</p>
+                      <label for="recipient-name" class="col-form-label">N. de ubicación:</label>
+
+                      <?php
+                      $consulta = "SELECT * FROM Ubicacion";
+                      $query = mysqli_query($conexion_BD, $consulta); ?>
+                      <select name="Ubicacion">
+                        <?php while ($Ubi = mysqli_fetch_assoc($query)) { ?>
+                          <option> <?php echo $Ubi['Nombre_Ubicacion'] ?></option>
+                        <?php } ?>
+                      </select>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+<!--Fin eliminar ubicación -->
         </section>
         <!-- Footer-->
         <footer class="footer text-center">

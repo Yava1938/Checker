@@ -12,14 +12,17 @@ $alumno = mysqli_fetch_array($resAlumno);
 
 
     $_SESSION['alumno'] = $alumno;
-    var_dump($_SESSION['alumno']);
+    
 
 if ($Matricula_Alumno == $alumno['Matricula_Alumno'] ) {
   if (password_verify($contrasena_Alumno, $alumno['Contrasena_Alumno']) ) {
     session_start();
     $_SESSION['Matricula_Alumno'] =  $alumno['Matricula_Alumno'];
     $_SESSION['alumno'] = $alumno;
-    //var_dump($_SESSION['alumno']);
+    
+    $sql="UPDATE Alumno SET Estado_Alumno = '1' where  Matricula_Alumno = '$Matricula_Alumno'";
+    $ejecutar=mysqli_query($conexion_BD, $sql);
+
 
     header("location: perfilAlumno.php");
   }else{

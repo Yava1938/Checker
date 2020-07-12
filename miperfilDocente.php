@@ -14,13 +14,49 @@ if (isset($_SESSION['docente'])) {
         <title>ChecherApp</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
         <!-- Google fonts-->
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+        
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
+
+        <style>
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+}
+
+.title {
+  color: grey;
+  font-size: 18px;
+}
+
+button {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+}
+
+
+button:hover, a:hover {
+  opacity: 0.7;
+}
+</style>
+
     </head>
     <body id="page-top">
         <!-- Navigation-->
@@ -44,9 +80,8 @@ if (isset($_SESSION['docente'])) {
                       echo $nombre; ?>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      <a class="dropdown-item" href="miperfilDocente.php">Perfíl</a>
-                      <a class="dropdown-item" href="temas.php">Temas</a>
-                      <a class="dropdown-item" href="InicioUbicacion.php">Ubicación</a>
+                      <a class="dropdown-item" href="PerfilDocente.php">Perfíl</a>
+                      <a class="dropdown-item" href="Ubicacion.php">Ubicación</a>
                       <hr>
                       <a class="dropdown-item" href="cerrarSesion.php">Cerrar sesión</a>
                     </div></h2>
@@ -57,39 +92,19 @@ if (isset($_SESSION['docente'])) {
             </div>
         </nav>
         <!-- Portfolio Section-->
-        <section class="page-section portfolio" id="Nosotros">
-            <div class="container">
-      <div class="textoPrincipal" style="text-align: center; margin-top:10px;"><br>
-        <h2>Reportes..!</h2>
-        <hr>
-      </div>
-            <div class="row mt-5 pt-3">
-        <?php
-        $id = $_SESSION['docente']['Id_Docente'];
-        $query = "SELECT Id_Alumno, Nombre_Alumno, Matricula_Alumno, Estado_Alumno FROM Alumno where Id_Docente = '$id'";
-        $resultadoUsuario = mysqli_query($conexion_BD, $query);
-        $estado = "";
-        while ($card = mysqli_fetch_array($resultadoUsuario)) {                ?>
-          <div class="col-sm-4  mb-3" style="width: 18rem;">
-            <div class="card-header bg-success " style="color: white;">Estudiante</div>
-            <div class="card-body">
-              <h5 class="card-title"><?php echo $card['1'] ?></h5>
-              <p class="card-text">N. Registro: <?php echo $card['0'] ?></p>
-              <p class="card-text">Matricula: <?php echo $card['2'] ?></p>
+        <section class="page-section portfolio" id="Nosotros"><br><br>
+          <h2 style="text-align:center">Perfil Docente</h2>
+            <div class="card">
+            <p>
+              <img src="assets/img/user.png" alt="John" style="width:40%">
+            </p>
+            <h1><?php $nombre = $_SESSION['docente']['Nombre_Docente'];
+            echo $nombre; ?></h1>
+            <p class="title"><?php $nombre = $_SESSION['docente']['Matricula_Docente'];
+            echo $nombre; ?></p>
+            <p class="title"><?php $nombre = $_SESSION['docente']['Correo_Docente'];
+            echo $nombre; ?></p>
             </div>
-            <div class="card-footer">
-              <small class="text-muted">
-                <h5><a href="">Generar reporte</a> </h5>
-              </small>
-            </div>
-          </div>
-        <?php } ?>
-      </div>
-      <div class="container mt-5 pt-10">
-      <center><a target="_blank" href="reporteGeneral.php"> <button type="button" class="btn btn-primary" data-toggle="modal" data-whatever="@mdo">Generar Reporte General
-          </button></a></center>
-      </div>
-  </div>
         </section>
         <!-- Footer-->
         <footer class="footer text-center">

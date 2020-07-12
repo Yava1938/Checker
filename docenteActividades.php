@@ -47,8 +47,7 @@ if (isset($_SESSION['docente'])) {
                       echo $nombre; ?>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      <a class="dropdown-item" href="PerfilDocente.php">Perfíl</a>
-                      <a class="dropdown-item" href="temas.php">Temas</a>
+                      <a class="dropdown-item" href="miperfilDocente.php">Perfíl</a>
                       <a class="dropdown-item" href="InicioUbicacion.php">Ubicación</a>
                       <hr>
                       <a class="dropdown-item" href="cerrarSesion.php">Cerrar sesión</a>

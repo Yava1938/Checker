@@ -1,7 +1,7 @@
 <?php include("conexion.php"); ?>
 <?php
 session_start();
-if (isset($_SESSION['docente'])) {
+if (isset($_SESSION['alumno'])) {
     
 ?>
 <!DOCTYPE html>
@@ -21,6 +21,40 @@ if (isset($_SESSION['docente'])) {
         <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
+
+                <style>
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 500px;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+}
+
+.title {
+  color: grey;
+  font-size: 18px;
+}
+
+button {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+}
+
+
+
+button:hover, a:hover {
+  opacity: 0.7;
+}
+</style>
     </head>
     <body id="page-top">
         <!-- Navigation-->
@@ -34,19 +68,16 @@ if (isset($_SESSION['docente'])) {
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
                         <div class="container">
-                  <a href="perfilDocente.php" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"><h5>Inicio</h5></a>
-                  <a href="docenteActividades.php" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"><h5>Actividades</h5></a>
-                  <a href="docenteReportes.php" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"><h5>Reportes</h5></a>
+                  <a href="perfilAlumno.php" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"><h5>Inicio</h5></a>
+                  <a href="alumnoReporte.php" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"><h5>Reportes</h5></a>
                   <h2><div class="dropdown ">
                     <button style="color:#4EC39E" class="btn btn-succes dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <?php
-                      $nombre = $_SESSION['docente']['Nombre_Docente'];
+                      $nombre = $_SESSION['alumno']['Nombre_Alumno'];
                       echo $nombre; ?>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      <a class="dropdown-item" href="miperfilDocente.php">Perfíl</a>
-                      <a class="dropdown-item" href="temas.php">Temas</a>
-                      <a class="dropdown-item" href="InicioUbicacion.php">Ubicación</a>
+                      <a class="dropdown-item" href="PerfilDocente.php">Perfíl</a>
                       <hr>
                       <a class="dropdown-item" href="cerrarSesion.php">Cerrar sesión</a>
                     </div></h2>
@@ -57,39 +88,21 @@ if (isset($_SESSION['docente'])) {
             </div>
         </nav>
         <!-- Portfolio Section-->
-        <section class="page-section portfolio" id="Nosotros">
-            <div class="container">
-      <div class="textoPrincipal" style="text-align: center; margin-top:10px;"><br>
-        <h2>Reportes..!</h2>
-        <hr>
-      </div>
-            <div class="row mt-5 pt-3">
-        <?php
-        $id = $_SESSION['docente']['Id_Docente'];
-        $query = "SELECT Id_Alumno, Nombre_Alumno, Matricula_Alumno, Estado_Alumno FROM Alumno where Id_Docente = '$id'";
-        $resultadoUsuario = mysqli_query($conexion_BD, $query);
-        $estado = "";
-        while ($card = mysqli_fetch_array($resultadoUsuario)) {                ?>
-          <div class="col-sm-4  mb-3" style="width: 18rem;">
-            <div class="card-header bg-success " style="color: white;">Estudiante</div>
-            <div class="card-body">
-              <h5 class="card-title"><?php echo $card['1'] ?></h5>
-              <p class="card-text">N. Registro: <?php echo $card['0'] ?></p>
-              <p class="card-text">Matricula: <?php echo $card['2'] ?></p>
+        <section class="page-section portfolio" id="Nosotros"><br><br>
+          <h2 style="text-align:center">Perfil Docente</h2>
+            <div class="card">
+            <p>
+              <img src="assets/img/user.png" alt="John" style="width:40%">
+            </p>
+            <h1><?php $nombre = $_SESSION['alumno']['Nombre_Alumno'];
+            echo $nombre; ?></h1>
+            <p class="title"><?php $nombre = $_SESSION['alumno']['Matricula_Alumno'];
+            echo $nombre; ?></p>
+            <p class="title"><?php $nombre = $_SESSION['alumno']['Licenciatura_Alumno'];
+            echo $nombre; ?></p>
+            <p class="title"><?php $nombre = $_SESSION['alumno']['Facultad'];
+            echo $nombre; ?></p>
             </div>
-            <div class="card-footer">
-              <small class="text-muted">
-                <h5><a href="">Generar reporte</a> </h5>
-              </small>
-            </div>
-          </div>
-        <?php } ?>
-      </div>
-      <div class="container mt-5 pt-10">
-      <center><a target="_blank" href="reporteGeneral.php"> <button type="button" class="btn btn-primary" data-toggle="modal" data-whatever="@mdo">Generar Reporte General
-          </button></a></center>
-      </div>
-  </div>
         </section>
         <!-- Footer-->
         <footer class="footer text-center">
