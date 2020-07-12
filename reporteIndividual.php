@@ -2,7 +2,7 @@
 require('fpdf182/fpdf.php');
 
 session_start();
-if (isset($_SESSION['docente'])) {
+if (isset($_SESSION['alumno'])) {
     
 
 
@@ -29,7 +29,7 @@ function Header()
 
     $this->cell(10, 10, 'Id', 1, 0, 'C', 0);
     $this->cell(35, 10, 'Alumno', 1, 0, 'C', 0);
-    $this->cell(35, 10, 'Descripcion', 1, 0, 'C', 0);
+    $this->cell(35, 10, utf8_decode('Descripción '), 1, 0, 'C', 0);
     $this->cell(40, 10, 'Fecha', 1, 0, 'C', 0);
     $this->cell(35, 10, utf8_decode('Ubicación '), 1, 0, 'C', 0);
     $this->cell(25, 10, 'Estado', 1, 1, 'C', 0);
@@ -53,8 +53,8 @@ FROM actividades a INNER JOIN ubicaciones u
         INNER JOIN estudiante e
             ON a.id_alumno = e.id_alumno";*/
 
-$docente = $_SESSION['docente']['Id_Docente'];
-$sql ="SELECT ac.Id_Actividad, al.Nombre_Alumno, ac.Descripcion_Actividad, ac.Fecha_Actividad, u.Nombre_Ubicacion, ac.Estado_Actividad FROM Actividad ac, Alumno al, Ubicacion u WHERE ac.Id_Alumno = al.Id_Alumno AND ac.Id_Ubicacion = u.Id_Ubicacion  AND ac.Id_Docente = '$docente'";            
+$alumno = $_SESSION['alumno']['Id_Alumno'];
+$sql ="SELECT ac.Id_Actividad, al.Nombre_Alumno, ac.Descripcion_Actividad, ac.Fecha_Actividad, u.Nombre_Ubicacion, ac.Estado_Actividad FROM Actividad ac, Alumno al, Ubicacion u WHERE ac.Id_Alumno = al.Id_Alumno AND ac.Id_Ubicacion = u.Id_Ubicacion  AND ac.Id_Alumno = '$alumno'";            
 
 /*$sql ="Select Id_Pedido, I.Descripcion_Producto,Cantidad_Producto, Precio_Pedido, Cliente_Pedido, Estado_Pedido, Token_Pedido, Fecha_Pedido
 From Inventario I, Pedido c 

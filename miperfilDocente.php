@@ -83,7 +83,7 @@ button:hover, a:hover {
                       <a class="dropdown-item" href="PerfilDocente.php">Perfíl</a>
                       <a class="dropdown-item" href="Ubicacion.php">Ubicación</a>
                       <hr>
-                      <a class="dropdown-item" href="cerrarSesion.php">Cerrar sesión</a>
+                      <a class="dropdown-item" href="cerrarSesionDocente.php">Cerrar sesión</a>
                     </div></h2>
                   </div>
                 </div>

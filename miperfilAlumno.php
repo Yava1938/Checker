@@ -69,7 +69,7 @@ button:hover, a:hover {
                     <ul class="navbar-nav ml-auto">
                         <div class="container">
                   <a href="perfilAlumno.php" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"><h5>Inicio</h5></a>
-                  <a href="alumnoReporte.php" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"><h5>Reportes</h5></a>
+                  <a href="reporteIndividual.php" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"><h5>Reportes</h5></a>
                   <h2><div class="dropdown ">
                     <button style="color:#4EC39E" class="btn btn-succes dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <?php
@@ -79,7 +79,7 @@ button:hover, a:hover {
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                       <a class="dropdown-item" href="PerfilDocente.php">Perfíl</a>
                       <hr>
-                      <a class="dropdown-item" href="cerrarSesion.php">Cerrar sesión</a>
+                      <a class="dropdown-item" href="cerrarSesionAlumno.php">Cerrar sesión</a>
                     </div></h2>
                   </div>
                 </div>

@@ -35,7 +35,7 @@ if (isset($_SESSION['alumno'])) {
                     <ul class="navbar-nav ml-auto">
                         <div class="container">
                   <a href="perfilAlumno.php" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"><h5>Inicio</h5></a>
-                  <a href="alumnoReporte.php" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"><h5>Reportes</h5></a>
+                  <a href="reporteIndividual.php" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"><h5>Reporte</h5></a>
                   <h2><div class="dropdown ">
                     <button style="color:#4EC39E" class="btn btn-succes dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <?php
@@ -45,7 +45,7 @@ if (isset($_SESSION['alumno'])) {
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                       <a class="dropdown-item" href="miperfilAlumno.php">Perfíl</a>
                       <hr>
-                      <a class="dropdown-item" href="cerrarSesion.php">Cerrar sesión</a>
+                      <a class="dropdown-item" href="cerrarSesionAlumno.php">Cerrar sesión</a>
                     </div></h2>
                   </div>
                 </div>
@@ -78,7 +78,7 @@ if (isset($_SESSION['alumno'])) {
 
             <?php
             $idDoc = $_SESSION['alumno']['Id_Docente'];
-            $sql = "Select * from Actividad WHERE Id_Docente = '$idDoc'";
+            $sql = "SELECT ac.Id_Actividad, al.Nombre_Alumno, ac.Prioridad, ac.Descripcion_Actividad, ac.Fecha_Actividad, u.Nombre_Ubicacion, ac.Estado_Actividad FROM Actividad ac, Alumno al, Ubicacion u WHERE ac.Id_Alumno = al.Id_Alumno AND ac.Id_Ubicacion = u.Id_Ubicacion  AND ac.Id_Docente = '$idDoc'";
             $resultadoActividades = mysqli_query($conexion_BD, $sql);
             while ($tab = mysqli_fetch_array($resultadoActividades)) {    ?>
 
@@ -91,9 +91,9 @@ if (isset($_SESSION['alumno'])) {
                   <th scope="row"><?php echo $tab['Id_Actividad'] ?></th>
                   <td><?php echo $tab['Descripcion_Actividad'] ?></td>
                   <td><?php echo $tab['Fecha_Actividad'] ?></td>
-                  <td><?php echo $ubicacion['Nombre_Ubicacion'] ?></td>
+                  <td><?php echo $tab['Nombre_Ubicacion'] ?></td>
                   <td><?php echo $tab['Prioridad'] ?></td>
-                  <td><?php echo $tab['Id_Alumno'] ?></td>
+                  <td><?php echo $tab['Nombre_Alumno'] ?></td>
                   <td><?php if ($tab['Estado_Actividad'] == 0) {
                     $estado = "Pendiente";
                   }else{
