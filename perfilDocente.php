@@ -162,7 +162,7 @@ if (isset($_SESSION['docente'])) {
             </div>
 
             <div class="modal-body">
-              <form action="EliminarEstudiante.php" method="POST">
+              <form action="EliminarAlumno.php" method="POST">
 
                 <div class="form-group">
                   <p>Selecciona el número de registro del estudiante a eliminar.</p>
