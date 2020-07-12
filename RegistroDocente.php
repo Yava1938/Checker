@@ -55,16 +55,16 @@ if (isset($_SESSION['docente'])) {
                 <form action="registrarDocente.php" class="formulario" method="POST">
                     <h1 class="titulo">Registrate!</h1>
                     <div class="inputs" style="margin-top: 20px;">
-                      <input type="text" class="formulario__input" name="nombre_docente">
+                      <input type="text" class="formulario__input" name="nombre_docente" required="required">
                       <label type="text" class="formulario__label">Nombre</label>
 
-                      <input type="text" class="formulario__input" name="matricula_docente">
+                      <input type="text" class="formulario__input" name="matricula_docente" required="required">
                       <label type="text" class="formulario__label">Matrícula</label>
 
-                      <input type="password" class="formulario__input" name="contrasena_docente">
+                      <input type="password" class="formulario__input" name="contrasena_docente" required="required">
                       <label type="text" class="formulario__label">Contraseña</label>
 
-                      <input type="text" class="formulario__input" name="correo_docente">
+                      <input type="text" class="formulario__input" name="correo_docente" required="required">
                       <label type="text" class="formulario__label">Correo</label>
                     </div>
                     <button type="submit" class="btn btn-primary btn-lg btn-block mb-3" name="submit">Registrar</button>

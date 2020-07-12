@@ -55,10 +55,10 @@ if (isset($_SESSION['docente'])) {
                 <form action="validarDocente.php" class="formulario" method="POST">
                     <h1 class="titulo">Iniciar sesión</h1>
                     <div class="inputs" style="margin-top: 20px;">
-                      <input type="text" class="formulario__input" name="matricula_docente">
+                      <input type="text" class="formulario__input" name="matricula_docente" required="required">
                       <label type="text" class="formulario__label">Matrícula</label>
 
-                      <input type="password" class="formulario__input" name="contrasena_docente">
+                      <input type="password" class="formulario__input" name="contrasena_docente" required="required">
                       <label type="text" class="formulario__label">Contraseña</label>
                     </div>
                     <button type="submit" class="btn btn-primary btn-lg btn-block mb-3" name="submit">Ingresar</button>
