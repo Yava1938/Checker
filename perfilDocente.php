@@ -11,6 +11,7 @@ if (isset($_SESSION['docente'])) {
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
+        <meta http-equiv="refresh" content="10">
         <title>ChecherApp</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
@@ -110,27 +111,27 @@ if (isset($_SESSION['docente'])) {
               <form action="registrarEstudiante.php" method="POST">
                 <div class="form-group">
                   <label for="recipient-name" class="col-form-label">Nombre del estudiante:</label>
-                  <input type="text" class="form-control" id="recipient-name" name="nombre" placeholder="Ej. Estudiante Maravilla" required="required">
+                  <input type="text" class="form-control" id="recipient-name" name="nombre" placeholder="Ej. Estudiante Maravilla">
                 </div>
 
                 <div class="form-group">
                   <label for="message-text" class="col-form-label">Matricula del estudiante:</label>
-                  <input type="text" class="form-control" id="message-text" name="matricula" placeholder="Ej. S17016281" required="required"></input>
+                  <input type="text" class="form-control" id="message-text" name="matricula" placeholder="Ej. S17016281"></input>
                 </div>
 
                 <div class="form-group">
                   <label for="message-text" class="col-form-label">Programa educativo:</label>
-                  <input type="text" class="form-control" id="message-text" name="licenciatura" placeholder="Ej. Ingeniería de Software" required="required"></input>
+                  <input type="text" class="form-control" id="message-text" name="licenciatura" placeholder="Ej. Ingeniería de Software"></input>
                 </div>
 
                 <div class="form-group">
                   <label for="message-text" class="col-form-label">Facultad de procedencia:</label>
-                  <input type="text" class="form-control" id="message-text" name="facultad" placeholder="Ej. Contaduría y Administración" required="required"></input>
+                  <input type="text" class="form-control" id="message-text" name="facultad" placeholder="Ej. Contaduría y Administración"></input>
                 </div>
 
                 <div class="form-group">
                   <label for="message-text" class="col-form-label">Contraseña del estudiante:</label>
-                  <input type="password" class="form-control" name="contrasena" placeholder="Ej. ************" required="required"></input>
+                  <input type="password" class="form-control" name="contrasena" placeholder="Ej. ************"></input>
                 </div>
 
 

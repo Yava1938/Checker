@@ -11,7 +11,7 @@ $resDocente = mysqli_query($conexion_BD, $queryDocente);
 $docente = mysqli_fetch_array($resDocente);
 
     $_SESSION['docente'] = $docente;
-    var_dump($_SESSION['docente']);
+    
 
 if ($Matricula_Docente == $docente['Matricula_Docente'] ) {
   if (password_verify($contrasena_Docente, $docente['contrasena_Docente']) ) {

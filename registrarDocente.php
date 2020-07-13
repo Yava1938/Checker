@@ -31,7 +31,6 @@ if (mysqli_num_rows($verificarMatriculaDocente) > 0 ) {
     if(!$ejecutar){
             echo"Error al registrar el usuario";
         }else{
-           session_start();
            header("location: perfilDocente.php");
     		die();
         }

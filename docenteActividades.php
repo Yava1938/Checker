@@ -68,6 +68,7 @@ if (isset($_SESSION['docente'])) {
             <div class="container">
       <div class="container">
         <center>
+            <div class="table-responsive">
           <table class="table" id="actividades">
             <thead>
               <tr>
@@ -83,7 +84,7 @@ if (isset($_SESSION['docente'])) {
 
             <?php
             $idDoc = $_SESSION['docente']['Id_Docente'];
-            $sql = "SELECT ac.Id_Actividad, al.Nombre_Alumno, ac.Prioridad, ac.Descripcion_Actividad, ac.Fecha_Actividad, u.Nombre_Ubicacion, ac.Estado_Actividad FROM Actividad ac, Alumno al, Ubicacion u WHERE ac.Id_Alumno = al.Id_Alumno AND ac.Id_Ubicacion = u.Id_Ubicacion  AND ac.Id_Docente = '$idDoc'";
+            $sql = "SELECT ac.Id_Actividad, al.Nombre_Alumno, ac.Prioridad, ac.Descripcion_Actividad, ac.Fecha_Actividad, u.Nombre_Ubicacion, ac.Estado_Actividad FROM Actividad ac, Alumno al, Ubicacion u WHERE ac.Id_Alumno = al.Id_Alumno AND ac.Id_Ubicacion = u.Id_Ubicacion  AND ac.Id_Docente = '$idDoc' ORDER BY Id_Actividad ASC";
             $resultadoActividades = mysqli_query($conexion_BD, $sql);
             while ($tab = mysqli_fetch_array($resultadoActividades)) {    ?>
 
@@ -101,6 +102,12 @@ if (isset($_SESSION['docente'])) {
                   <td><?php echo $tab['Nombre_Alumno'] ?></td>
                   <td><?php if ($tab['Estado_Actividad'] == 0) {
                     $estado = "Pendiente";
+                  }elseif ($tab['Estado_Actividad'] == 1) {
+                    $estado = "En curso";
+                  }elseif ($tab['Estado_Actividad'] == 2) {
+                    $estado = "En Pausa";
+                  }elseif ($tab['Estado_Actividad'] == 3) {
+                    $estado = "Esperando evaluación";
                   }else{
                     $estado = "Realizado";
                   }
@@ -109,6 +116,7 @@ if (isset($_SESSION['docente'])) {
               </tbody>
             <?php } ?>
           </table>
+          </div>
         </center>
       </div>
 
@@ -126,6 +134,9 @@ if (isset($_SESSION['docente'])) {
 
 
           <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal2" data-whatever="@mdo">Eliminar Actividad
+          </button>
+
+          <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#exampleModal3" data-whatever="@mdo">Evaluar Actividad
           </button>
 
         </div>
@@ -227,7 +238,8 @@ if (isset($_SESSION['docente'])) {
                     <label for="message-text" class="col-form-label">Número de actividad:</label>
                     <br>
                     <?php
-                    $consulta = "SELECT * FROM Actividad";
+                    $yo = $_SESSION['docente']['Id_Docente'];
+                    $consulta = "SELECT * FROM Actividad WHERE Id_Docente = '$yo' AND Estado_Actividad = '0'";
                     $query = mysqli_query($conexion_BD, $consulta); ?>
                     <select name="id">
                       <?php while ($actividad = mysqli_fetch_assoc($query)) { ?>
@@ -281,8 +293,6 @@ if (isset($_SESSION['docente'])) {
 
 
         <!-- Eliminar una actividad-->
-
-
         <div class="container mt-2 pt-2">
           <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -318,6 +328,50 @@ if (isset($_SESSION['docente'])) {
             </div>
           </div>
         </div>
+
+        <!-- Fin Eliminar una actividad-->
+        <!-- Evaluar una actividad-->
+        <div class="container mt-2 pt-2">
+          <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header bg-light text-dark">
+                  <h5 class="modal-title" id="exampleModalLabel">Evaluar Actividad</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="form-group">
+                    <form action="EvaluarActividad.php" method="post">
+                      <p>Selecciona el número de actividad a evaluar.</p>
+                      <label for="recipient-name" class="col-form-label">N. de Actividad:</label>
+
+                      <?php
+                      $consulta = "SELECT * FROM Actividad WHERE Estado_Actividad ='3'";
+                      $query = mysqli_query($conexion_BD, $consulta); ?>
+                      <select name="descripcion">
+                        <?php while ($actividades = mysqli_fetch_assoc($query)) { ?>
+                          <option> <?php echo $actividades['Descripcion_Actividad'] ?></option>
+                        <?php } ?>
+                      </select><br>
+                      <label for="recipient-name" class="col-form-label">Cambiar estado a:</label>
+                      <select class="form-control" name = "newEstado">
+                        <option >Realizado</option>
+                        <option >Pendiente</option>
+                      </select>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-info">Evaluar</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Fin Evaluar una actividad-->
       </div>
     </div>
         </section>

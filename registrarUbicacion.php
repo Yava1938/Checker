@@ -32,14 +32,9 @@ if (mysqli_num_rows($verificarUbicacion) > 0 ) {
     if(!$ejecutar){
             echo"Error al registrar la ubicación";
         }else{
-           echo '<script>
-    			 			alert("Ubicación registrada correctamente");
-    			 </script>';
            header("location: Ubicacion.php");
     		die();
         }
-
-
     }else{
         echo "Por favor seleccione imagen a subir.";
     }

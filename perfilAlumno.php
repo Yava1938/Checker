@@ -63,11 +63,12 @@ if (isset($_SESSION['alumno'])) {
             <div class="container">
       <div class="container">
         <center>
+            <div class="table-responsive">
           <table class="table" id="actividades">
             <thead>
               <tr>
                 <th scope="col">id</th>
-                <th scope="col">Descripcion</th>
+                <th scope="col">Descripción</th>
                 <th scope="col">Fecha</th>
                 <th scope="col">Ubicación</th>
                 <th scope="col">Prioridad</th>
@@ -78,15 +79,12 @@ if (isset($_SESSION['alumno'])) {
 
             <?php
             $idDoc = $_SESSION['alumno']['Id_Docente'];
-            $sql = "SELECT ac.Id_Actividad, al.Nombre_Alumno, ac.Prioridad, ac.Descripcion_Actividad, ac.Fecha_Actividad, u.Nombre_Ubicacion, ac.Estado_Actividad FROM Actividad ac, Alumno al, Ubicacion u WHERE ac.Id_Alumno = al.Id_Alumno AND ac.Id_Ubicacion = u.Id_Ubicacion  AND ac.Id_Docente = '$idDoc'";
+            $sql = "SELECT ac.Id_Actividad, al.Nombre_Alumno, ac.Prioridad, ac.Descripcion_Actividad, ac.Fecha_Actividad, u.Nombre_Ubicacion, ac.Estado_Actividad FROM Actividad ac, Alumno al, Ubicacion u WHERE ac.Id_Alumno = al.Id_Alumno AND ac.Id_Ubicacion = u.Id_Ubicacion  AND ac.Id_Docente = '$idDoc' ORDER BY Id_Actividad ASC";
             $resultadoActividades = mysqli_query($conexion_BD, $sql);
             while ($tab = mysqli_fetch_array($resultadoActividades)) {    ?>
 
               <tbody>
                 <tr>
-                  <?php $consultaTablaUbicacion = "SELECT * FROM Ubicacion";
-                  $queryTabla = mysqli_query($conexion_BD, $consultaTablaUbicacion);
-                  $ubicacion = mysqli_fetch_array($queryTabla); ?>
 
                   <th scope="row"><?php echo $tab['Id_Actividad'] ?></th>
                   <td><?php echo $tab['Descripcion_Actividad'] ?></td>
@@ -96,6 +94,12 @@ if (isset($_SESSION['alumno'])) {
                   <td><?php echo $tab['Nombre_Alumno'] ?></td>
                   <td><?php if ($tab['Estado_Actividad'] == 0) {
                     $estado = "Pendiente";
+                  }elseif ($tab['Estado_Actividad'] == 1) {
+                    $estado = "En curso";
+                  }elseif ($tab['Estado_Actividad'] == 2) {
+                    $estado = "En Pausa";
+                  }elseif ($tab['Estado_Actividad'] == 3) {
+                    $estado = "Esperando evaluación";
                   }else{
                     $estado = "Realizado";
                   }
@@ -104,6 +108,7 @@ if (isset($_SESSION['alumno'])) {
               </tbody>
             <?php } ?>
           </table>
+          </div>
         </center>
       </div>
   </div>
@@ -115,6 +120,12 @@ if (isset($_SESSION['alumno'])) {
           </button>
 
           <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#exampleModal2" data-whatever="@mdo">Registrar Actividad
+          </button>
+
+          <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModal3" data-whatever="@mdo">En curso
+          </button>
+
+          <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModal4" data-whatever="@mdo">Pausar
           </button>
         </div>
 
@@ -142,13 +153,17 @@ if (isset($_SESSION['alumno'])) {
                     <br>
                     <?php
                     $idAlumno = $_SESSION['alumno']['Id_Alumno'];
-                    $consulta = "SELECT * FROM Actividad WHERE Id_Alumno ='$idAlumno'";
+                    $consulta = "SELECT * FROM Actividad WHERE Id_Alumno ='$idAlumno' AND Estado_Actividad='1'";
                     $query = mysqli_query($conexion_BD, $consulta); ?>
                     <select name="idActividad">
                       <?php while ($act = mysqli_fetch_assoc($query)) { ?>
                         <option> <?php echo $act['Id_Actividad'] ?></option>
                       <?php } ?>
                     </select>
+                    <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Observaciones</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" Name="observaciones"></textarea>
+                  </div>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -175,12 +190,24 @@ if (isset($_SESSION['alumno'])) {
               </div>
 
               <div class="modal-body" style="padding-top: 20px;">
-                <form action="concluirActividad.php" method="post">
+                <form action="registrarActividad.php" method="post">
                   <p>Ingrese los datos de la nueva actividad.</p>
                   <hr>
                   <div class="form-group">
                     <label for="recipient-name" class="col-form-label">Alumno:</label>
-                    <input type="text" class="form-control" id="recipient-name" name="Alumno" value="<?php echo $_SESSION['alumno']['Nombre_Alumno'];?>" disabled="disabled">
+                    <input type="text" class="form-control" id="recipient-name" name="estudiante_asignado" value="<?php echo $_SESSION['alumno']['Nombre_Alumno'];?>" disabled="disabled">
+                  </div>
+                  <div class="form-group">
+                    <label for="message-text" class="col-form-label">Ubicación de la actividad:</label>
+                    <br>
+                    <?php
+                    $consulta = "SELECT * FROM Ubicacion";
+                    $query = mysqli_query($conexion_BD, $consulta); ?>
+                    <select name="ubicacion">
+                      <?php while ($ubicaciones = mysqli_fetch_assoc($query)) { ?>
+                        <option> <?php echo $ubicaciones['Nombre_Ubicacion'] ?></option>
+                      <?php } ?>
+                    </select>
                   </div>
                   <div class="form-group">
                     <label for="recipient-name" class="col-form-label">Descripción de la actividad:</label>
@@ -207,7 +234,84 @@ if (isset($_SESSION['alumno'])) {
         </div>
       </div>
     <!--Fin Registrar Actividad-->
-    <!-- Fin eliminar alumno -->
+    <!-- En curso-->
+    <div class="container mt-2 pt-2">
+
+        <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header bg-info text-white">
+                <h5 class="modal-title" id="exampleModalLabel">Registrar Actividad</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+
+              <div class="modal-body" style="padding-top: 20px;">
+                <form action="cursoActividad.php" method="post">
+                  <p>Seleccione la actividad en curso.</p>
+                  <hr>
+                  
+                  <?php
+                  $yo = $_SESSION['alumno']['Id_Alumno'];
+                      $consulta = "SELECT * FROM Actividad WHERE Id_Alumno ='$yo' AND Estado_Actividad='0' OR Estado_Actividad = '2' AND Id_Alumno ='$yo'";
+                      $query = mysqli_query($conexion_BD, $consulta); ?>
+                      <select name="descripcion">
+                        <?php while ($actividades = mysqli_fetch_assoc($query)) { ?>
+                          <option> <?php echo $actividades['Descripcion_Actividad'] ?></option>
+                        <?php } ?>
+                      </select>
+                  
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-info">Guardar</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <!-- Fin En curso-->
+    <!-- Pausar-->
+    <div class="container mt-2 pt-2">
+
+        <div class="modal fade" id="exampleModal4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header bg-info text-white">
+                <h5 class="modal-title" id="exampleModalLabel">Registrar Actividad</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+
+              <div class="modal-body" style="padding-top: 20px;">
+                <form action="pausarActividad.php" method="post">
+                  <p>Ingrese los datos de la nueva actividad.</p>
+                  <hr>
+                  <?php
+                  $yo = $_SESSION['alumno']['Id_Alumno'];
+                      $consulta = "SELECT * FROM Actividad WHERE Id_Alumno ='$yo' AND Estado_Actividad='1'";
+                      $query = mysqli_query($conexion_BD, $consulta); ?>
+                      <select name="descripcion">
+                        <?php while ($actividades = mysqli_fetch_assoc($query)) { ?>
+                          <option> <?php echo $actividades['Descripcion_Actividad'] ?></option>
+                        <?php } ?>
+                      </select>
+                  
+                  
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-info">Guardar</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <!--Fin Pausar-->
         </section>
         <!-- Footer-->
         <footer class="footer text-center">

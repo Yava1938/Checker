@@ -24,9 +24,6 @@ $ejecutar=mysqli_query($conexion_BD, $sql);
 if(!$ejecutar){
     echo"Error al actualizar";
 }else{
-    echo '<script>
-    			alert("Actividad registrada correctamente");
-    			</script>';
     header("location: docenteActividades.php");
     die();
 }

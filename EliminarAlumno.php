@@ -23,7 +23,6 @@ $ejecutar=mysqli_query($conexion_BD, $sql);
 if(!$ejecutar){
     echo"Error al Eliminar";
 }else{
-
     header("location: perfilDocente.php");
     die();
 }

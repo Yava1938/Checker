@@ -23,9 +23,6 @@ $ejecutar=mysqli_query($conexion_BD, $sql);
 if(!$ejecutar){
     echo"Error al eliminar actividad";
 }else{
-    echo '<script>
-    			alert("Actividad registrada correctamente");
-    			</script>';
     header("location: docenteActividades.php");
     die();
 }

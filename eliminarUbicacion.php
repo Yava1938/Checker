@@ -18,9 +18,6 @@ $ejecutar=mysqli_query($conexion_BD, $sql2);
 if(!$ejecutar){
     echo"Error al eliminar Ubicacion";
 }else{
-    echo '<script>
-    			alert("Ubicacion eliminada correctamente");
-    			</script>';
     header("location: Ubicacion.php");
     die();
 }

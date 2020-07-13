@@ -39,7 +39,7 @@ if (isset($_SESSION['docente'])) {
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="index.php">Inicio</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="Docente.php">Docente</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="docente.php">Docente</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="alumno.php">Alumno</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="index.php">Acerca de nosotros</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="index.php">Contactanos!</a></li>
@@ -50,15 +50,15 @@ if (isset($_SESSION['docente'])) {
         
         <!-- Portfolio Section-->
         <section class="page-section portfolio" id="Docente">
-            <div class="container">
+            <div class="container"><br><br>
 
                 <form action="validarDocente.php" class="formulario" method="POST">
                     <h1 class="titulo">Iniciar sesión</h1>
                     <div class="inputs" style="margin-top: 20px;">
-                      <input type="text" class="formulario__input" name="matricula_docente" required="required">
+                      <input type="text" class="formulario__input" name="matricula_docente">
                       <label type="text" class="formulario__label">Matrícula</label>
 
-                      <input type="password" class="formulario__input" name="contrasena_docente" required="required">
+                      <input type="password" class="formulario__input" name="contrasena_docente">
                       <label type="text" class="formulario__label">Contraseña</label>
                     </div>
                     <button type="submit" class="btn btn-primary btn-lg btn-block mb-3" name="submit">Ingresar</button>
