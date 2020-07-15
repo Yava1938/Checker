@@ -90,7 +90,7 @@ if (isset($_SESSION['docente'])) {
           <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Agregar Ubicación
           </button>
 
-          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal2" data-whatever="@mdo">Eliminar Actividad
+          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal2" data-whatever="@mdo">Eliminar Ubicación
           </button>
 
         </div>
@@ -105,7 +105,7 @@ if (isset($_SESSION['docente'])) {
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header bg-success text-white">
-                <h5 class="modal-title" id="exampleModalLabel">Registrar Actividad</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Registrar Ubicación</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -150,7 +150,7 @@ if (isset($_SESSION['docente'])) {
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header bg-danger text-white">
-                  <h5 class="modal-title" id="exampleModalLabel">Eliminar Actividad</h5>
+                  <h5 class="modal-title" id="exampleModalLabel">Eliminar Ubicación</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>

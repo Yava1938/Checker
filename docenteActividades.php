@@ -242,8 +242,8 @@ if (isset($_SESSION['docente'])) {
                     $query = mysqli_query($conexion_BD, $consulta); ?>
                     <select name="estudiante_asignado">
                       <?php while ($asignarEstudiante = mysqli_fetch_assoc($query)) { ?>
+                        
                         <option> <?php echo $asignarEstudiante['nombre'] ?> </option>
-
                       <?php } ?>
                     </select>
                   </div>
