@@ -84,16 +84,12 @@ if (isset($_SESSION['docente'])) {
 
             <?php
             $idDoc = $_SESSION['docente']['Id_Docente'];
-            $sql = "SELECT ac.Id_Actividad, al.Nombre_Alumno, ac.Prioridad, ac.Descripcion_Actividad, ac.Fecha_Actividad, u.Nombre_Ubicacion, ac.Estado_Actividad FROM Actividad ac, Alumno al, Ubicacion u WHERE ac.Id_Alumno = al.Id_Alumno AND ac.Id_Ubicacion = u.Id_Ubicacion  AND ac.Id_Docente = '$idDoc' ORDER BY Id_Actividad ASC";
+            $sql = "SELECT ac.Id_Actividad, al.Nombre_Alumno, ac.Prioridad, ac.Descripcion_Actividad, ac.Fecha_Actividad, u.Nombre_Ubicacion, ac.Estado_Actividad FROM Actividad ac, Alumno al, Ubicacion u WHERE ac.Id_Alumno = al.Id_Alumno AND ac.Id_Ubicacion = u.Id_Ubicacion  AND ac.Id_Docente = '$idDoc' AND Estado_Actividad != '3' AND Estado_Actividad != '4' ORDER BY Id_Actividad ASC";
             $resultadoActividades = mysqli_query($conexion_BD, $sql);
             while ($tab = mysqli_fetch_array($resultadoActividades)) {    ?>
 
               <tbody>
                 <tr>
-                  <?php $consultaTablaUbicacion = "SELECT * FROM Ubicacion";
-                  $queryTabla = mysqli_query($conexion_BD, $consultaTablaUbicacion);
-                  $ubicacion = mysqli_fetch_array($queryTabla); ?>
-
                   <th scope="row"><?php echo $tab['Id_Actividad'] ?></th>
                   <td><?php echo $tab['Descripcion_Actividad'] ?></td>
                   <td><?php echo $tab['Fecha_Actividad'] ?></td>
@@ -135,6 +131,64 @@ if (isset($_SESSION['docente'])) {
 
           <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal2" data-whatever="@mdo">Eliminar Actividad
           </button>
+
+        </div>
+
+      </center>
+
+      <div class="textoPrincipal" style="text-align: center; margin-top:10px;"><br>
+        <h2>Actividades Finalizadas</h2>
+        <hr>
+      </div>
+            <div class="container">
+      <div class="container">
+        <center>
+            <div class="table-responsive">
+          <table class="table" id="actividades">
+            <thead>
+              <tr>
+                <th scope="col">id</th>
+                <th scope="col">Descripcion</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Ubicación</th>
+                <th scope="col">Prioridad</th>
+                <th scope="col">Responsable</th>
+                <th scope="col">Estado</th>
+              </tr>
+            </thead>
+
+            <?php
+            $idDoc = $_SESSION['docente']['Id_Docente'];
+            $sql = "SELECT ac.Id_Actividad, al.Nombre_Alumno, ac.Prioridad, ac.Descripcion_Actividad, ac.Fecha_Actividad, u.Nombre_Ubicacion, ac.Estado_Actividad FROM Actividad ac, Alumno al, Ubicacion u WHERE ac.Id_Alumno = al.Id_Alumno AND ac.Id_Ubicacion = u.Id_Ubicacion  AND ac.Id_Docente = '$idDoc' AND Estado_Actividad ='3' ORDER BY Id_Actividad ASC";
+            $resultadoActividades = mysqli_query($conexion_BD, $sql);
+            while ($tab = mysqli_fetch_array($resultadoActividades)) {    ?>
+
+              <tbody>
+                <tr>
+                  <?php $consultaTablaUbicacion = "SELECT * FROM Ubicacion";
+                  $queryTabla = mysqli_query($conexion_BD, $consultaTablaUbicacion);
+                  $ubicacion = mysqli_fetch_array($queryTabla); ?>
+
+                  <th scope="row"><?php echo $tab['Id_Actividad'] ?></th>
+                  <td><?php echo $tab['Descripcion_Actividad'] ?></td>
+                  <td><?php echo $tab['Fecha_Actividad'] ?></td>
+                  <td><?php echo $tab['Nombre_Ubicacion'] ?></td>
+                  <td><?php echo $tab['Prioridad'] ?></td>
+                  <td><?php echo $tab['Nombre_Alumno'] ?></td>
+                  <td><?php if ($tab['Estado_Actividad'] == 3) {
+                    $estado = "Esperando evaluación";
+                  }
+                  echo $estado ?></td>
+                </tr>
+              </tbody>
+            <?php } ?>
+          </table>
+          </div>
+        </center>
+      </div>
+
+      <center>
+        <div class="btn-group" role="group" aria-label="Basic example" style="margin: 5px;">
 
           <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#exampleModal3" data-whatever="@mdo">Evaluar Actividad
           </button>

@@ -71,10 +71,9 @@ if (isset($_SESSION['docente'])) {
         $estado = "";
         while ($card = mysqli_fetch_array($resultadoUsuario)) {                ?>
           <div class="col-sm-4  mb-3" style="width: 18rem;">
-            <div class="card-header bg-success " style="color: white;">Estudiante</div>
+            <div class="card-header bg-info " style="color: white;">Estudiante No. <?php echo $card['0'] ?></div>
             <div class="card-body">
               <h5 class="card-title"><?php echo $card['1'] ?></h5>
-              <p class="card-text">N. Registro: <?php echo $card['0'] ?></p>
               <p class="card-text">Matricula: <?php echo $card['2'] ?></p>
             </div>
             <div class="card-footer">
