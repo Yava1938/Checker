@@ -5,13 +5,13 @@ if (isset($_SESSION['docente'])) {
     
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
+        
         <meta name="author" content="" />
-        <meta http-equiv="refresh" content="10">
         <title>ChecherApp</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
@@ -76,13 +76,13 @@ if (isset($_SESSION['docente'])) {
               <h5 class="card-title"><?php echo $card['1'] ?></h5>
               <p class="card-text">Matricula: <?php echo $card['2'] ?></p>
             </div>
-            <div class="card-footer">
+            <div class="card-footer" id="recargar">
               <?php if ($card['3'] == 0) {
                 $estado = "Desconectado";
               } else {
                 $estado = "Conectado";
               } ?>
-              <p class="text-muted"><?php echo $estado; ?></p>
+              <p class="text-muted" ><?php echo $estado; ?></p>
             </div>
           </div>
         <?php } ?>
@@ -241,6 +241,16 @@ if (isset($_SESSION['docente'])) {
         <script src="js/scripts.js"></script>
     </body>
 </html>
+<script type="text/javascript">
+  $(document).ready(function(){
+    setInterval(
+      function()
+      {
+        $('#recargar').load();
+      },2000
+      );
+  });
+</script>
 <?php }elseif (isset($_SESSION['alumno'])) {
     header("location: perfilAlumno.php");
 }else{

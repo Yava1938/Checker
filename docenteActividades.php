@@ -159,26 +159,30 @@ if (isset($_SESSION['docente'])) {
 
             <?php
             $idDoc = $_SESSION['docente']['Id_Docente'];
-            $sql = "SELECT ac.Id_Actividad, al.Nombre_Alumno, ac.Prioridad, ac.Descripcion_Actividad, ac.Fecha_Actividad, u.Nombre_Ubicacion, ac.Estado_Actividad FROM Actividad ac, Alumno al, Ubicacion u WHERE ac.Id_Alumno = al.Id_Alumno AND ac.Id_Ubicacion = u.Id_Ubicacion  AND ac.Id_Docente = '$idDoc' AND Estado_Actividad ='3' ORDER BY Id_Actividad ASC";
+            $sql = "SELECT ac.Id_Actividad, al.Nombre_Alumno, ac.Prioridad, ac.Descripcion_Actividad, ac.Fecha_Actividad, u.Nombre_Ubicacion, ac.Estado_Actividad, ac.Observacion_Actividad FROM Actividad ac, Alumno al, Ubicacion u WHERE ac.Id_Alumno = al.Id_Alumno AND ac.Id_Ubicacion = u.Id_Ubicacion  AND ac.Id_Docente = '$idDoc' AND Estado_Actividad ='3' ORDER BY Id_Actividad ASC";
             $resultadoActividades = mysqli_query($conexion_BD, $sql);
             while ($tab = mysqli_fetch_array($resultadoActividades)) {    ?>
 
               <tbody>
                 <tr>
-                  <?php $consultaTablaUbicacion = "SELECT * FROM Ubicacion";
-                  $queryTabla = mysqli_query($conexion_BD, $consultaTablaUbicacion);
-                  $ubicacion = mysqli_fetch_array($queryTabla); ?>
-
                   <th scope="row"><?php echo $tab['Id_Actividad'] ?></th>
                   <td><?php echo $tab['Descripcion_Actividad'] ?></td>
                   <td><?php echo $tab['Fecha_Actividad'] ?></td>
                   <td><?php echo $tab['Nombre_Ubicacion'] ?></td>
-                  <td><?php echo $tab['Prioridad'] ?></td>
+                  <td><?php if ($tab['Prioridad'] == 1) {
+                    $prioridad = "Baja";
+                  }elseif ($tab['Prioridad'] == 2) {
+                    $prioridad = "Media";
+                  }elseif ($tab['Prioridad'] == 3){
+                    $prioridad ="Alta";
+                  }
+                  echo $prioridad ?></td>
                   <td><?php echo $tab['Nombre_Alumno'] ?></td>
                   <td><?php if ($tab['Estado_Actividad'] == 3) {
                     $estado = "Esperando evaluación";
                   }
                   echo $estado ?></td>
+                  <td><?php echo $tab['Observacion_Actividad'] ?></td>
                 </tr>
               </tbody>
             <?php } ?>
@@ -241,8 +245,8 @@ if (isset($_SESSION['docente'])) {
                     $consulta = "SELECT Nombre_Alumno as nombre FROM Alumno WHERE Id_Docente = '$idDoc'";
                     $query = mysqli_query($conexion_BD, $consulta); ?>
                     <select name="estudiante_asignado">
-                      <?php while ($asignarEstudiante = mysqli_fetch_assoc($query)) { ?>
-                        
+                        <option>      </option>
+                        <?php while ($asignarEstudiante = mysqli_fetch_assoc($query)) { ?>
                         <option> <?php echo $asignarEstudiante['nombre'] ?> </option>
                       <?php } ?>
                     </select>
